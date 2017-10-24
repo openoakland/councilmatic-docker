@@ -8,8 +8,8 @@ Docker instance for councilmatic-scraper.
 
 ### Edit volumes docker-compose.yml for your local environment
 1. Replace "<<local_db_data_dir>>" (Initially, this will be empty.)
-2. Replace "<<local_councilmatic-scraper_git_repo_dir>>".
-   a. https://github.com/openoakland/councilmatic-scraper
+2. Replace "<<local_councilmatic-scraper_git_repo_dir>>"
+   1. https://github.com/openoakland/councilmatic-scraper
 
 ### Start docker instance with docker-compose
 1. In directory with docker-compose.yml run:

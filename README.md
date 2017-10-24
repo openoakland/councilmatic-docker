@@ -1,5 +1,5 @@
 # councilmatic-docker
-Docker instance for councilmatic-scraper
+Docker instance for councilmatic-scraper.  
 
 ## Quickstart
 
@@ -41,6 +41,8 @@ cd /home/postgres/councilmatic/work
 cd /home/postgres/councilmatic/scripts
 sh setup_db.sh
 ```
+
+After you have initialized your database, files should appear in your local db data directory. 
 
 ### Run pupa update (for Oakland)
 1. Run

@@ -1,0 +1,13 @@
+version: "0.1"
+
+services:
+  postgres:
+    image: ekkus93/councilmatic-scraper:latest
+    environment:
+      POSTGRES_PASSWORD: str0ng*p4ssw0rd
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - /Users/phillipcchin/work/councilmatic-scraper-data:/var/lib/postgresql/data
+      - /Users/phillipcchin/work/councilmatic-scraper:/home/postgres/work      
+    ports:
+      - "5432:5432"

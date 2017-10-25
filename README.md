@@ -31,7 +31,7 @@ docker ps
 ```
 2. Log in as postgres
 ```
-docker exec --it -u postgres <<container_id>> bash
+docker exec -it -u postgres <<container_id>> bash
 ```
 3. Activate councilmatic-scraper virtualenv
 ```

@@ -35,6 +35,9 @@ RUN apt-get install gdal-bin python3-gdal -y
 # xml stuff
 RUN apt-get -y install libxml2-dev libxslt-dev
 
+# text editors
+RUN apt-get install vim nano -y
+
 # home dir
 RUN mkdir -p /home/postgres/scripts
 RUN mkdir -p /home/postgres/work

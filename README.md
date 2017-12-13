@@ -13,7 +13,12 @@ Docker instance for councilmatic-scraper.
    ```
    git clone https://github.com/openoakland/councilmatic-scraper
    ```
-
+   2. *Currently (12/13/17), we are working on the "events" branch. Switch use the "events" branch until further notice.
+   ```
+   cd councilmatic-scraper
+   git checkout events
+   ```
+   
 The local db data directory and the councilmatic scraper git repo directory cannot be subdirectories of each other. If you're still not sure what to set, you can take a look at docker-compose.yml.sample. This is how I have things set up on my computer on Mac OS X.
 
 If you want, you can also change the POSTGRES_PASSWORD.  You will need this if you want to connect remotely to the database as "postgres".  The default postgres port, 5432, has been exposed.  You should be able to connect to the database on that port on 127.0.0.1 or the ip of your Docker host instance.

@@ -42,11 +42,14 @@ docker exec -it -u postgres <<container_id>> bash
 ```
 source /home/postgres/councilmatic/bin/activate
 ```
+or
+```
+source_councilmatic
+```
 4. cd into councilmatic-scraper repo directory
 ```
 cd /home/postgres/work
 ```
-
 ### Initialize database (**Only run once**)
 ```
 cd /home/postgres/scripts

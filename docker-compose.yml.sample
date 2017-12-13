@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: str0ng*p4ssw0rd
       PGDATA: /var/lib/postgresql/data
     volumes:
-      - <<local_db_data_dir>>:/var/lib/postgresql/data
-      - <<local_councilmatic-scraper_git_repo_dir>>:/home/postgres/work      
+      - /Users/phillipcchin/work/councilmatic-scraper-data:/var/lib/postgresql/data
+      - /Users/phillipcchin/work/councilmatic-scraper:/home/postgres/work      
     ports:
       - "5432:5432"

@@ -55,10 +55,13 @@ RUN chown -R postgres /home/postgres
 USER postgres
 
 # fix term
-RUN echo "\n\nexport TERM=xterm\n\n" >> /home/postgres/.bashrc
+RUN echo "\nexport TERM=xterm\n" >> /home/postgres/.bashrc
+
+# add alias for source
+RUN echo "\nalias source_councilmatic='source /home/postgres/councilmatic/bin/activate'\n" >> /home/postgres/.bashrc
 
 # set database connection
-RUN echo "\n\nexport DATABASE_URL=postgresql:///opencivicdata\n\n" >> /home/postgres/.bashrc
+RUN echo "\nexport DATABASE_URL=postgresql:///opencivicdata\n" >> /home/postgres/.bashrc
 
 RUN cd /home/postgres && virtualenv -p /usr/bin/python3 councilmatic 
 RUN bash /home/postgres/scripts/setup_env.sh

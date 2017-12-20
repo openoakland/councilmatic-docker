@@ -26,7 +26,12 @@ If you want, you can also change the POSTGRES_PASSWORD.  You will need this if y
 ### Start docker instance with docker-compose
 1. In directory with docker-compose.yml run:
 ```
-docker-compose up
+docker-compose up -d
+```
+
+**_To force downloading the latest version of the docker container:_**
+```
+docker-compose build --pull && docker-compose up -d
 ```
 
 ### Connect to your docker instance

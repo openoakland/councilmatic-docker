@@ -102,3 +102,6 @@ ENV/
 
 # emacs backup files
 *~
+
+# Intellij files
+.idea

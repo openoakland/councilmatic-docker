@@ -13,52 +13,36 @@ Docker instance for councilmatic-scraper.
    ```
    git clone https://github.com/openoakland/councilmatic-scraper
    ```
-   2. *Currently (12/13/17), we are working on the "events" branch. Switch use the "events" branch until further notice.
-   ```
-   cd councilmatic-scraper
-   git checkout events
-   ```
-   
+
 The local db data directory and the councilmatic scraper git repo directory cannot be subdirectories of each other. If you're still not sure what to set, you can take a look at docker-compose.yml.sample. This is how I have things set up on my computer on Mac OS X.
 
 If you want, you can also change the POSTGRES_PASSWORD.  You will need this if you want to connect remotely to the database as "postgres".  The default postgres port, 5432, has been exposed.  You should be able to connect to the database on that port on 127.0.0.1 or the ip of your Docker host instance.
 
 ### Start docker instance with docker-compose
-1. In directory with docker-compose.yml run:
+In directory with docker-compose.yml run:
 ```
-docker-compose up -d
-```
-
-**_To force downloading the latest version of the docker container:_**
-```
-docker-compose build --pull && docker-compose up -d
+docker-compose up
 ```
 
-### Connect to your docker instance
+### Switch to another Terminal session and connect to your docker instance 
 
-2. Get the container id for your instance and then log in as postgres
+   **Either:** Get the *container id* for your instance in a local variable:
 ```
-docker ps
-docker exec -it -u postgres <<container_id>> bash
+  1. docker ps
+  2. docker exec -it -u postgres "container_id" bash
+```    
+
+   **Or:** If you have only one docker:
+```         
+  1. container_id=$(docker ps | sed -n 2p | awk '{print $1}')
+  2. docker exec -it -u postgres $container_id bash
 ```
-or if you have only one docker instance
-```
-container_id=$(docker ps | sed -n 2p | awk '{print $1}')
-docker exec -it -u postgres $container_id bash
-```
-3. Activate councilmatic-scraper virtualenv
+### Activate councilmatic-scraper virtualenv
 ```
 source /home/postgres/councilmatic/bin/activate
 ```
-or
-```
-source_councilmatic
-```
-4. cd into councilmatic-scraper repo directory
-```
-cd /home/postgres/work
-```
-### Initialize database (**Only run once**)
+
+### Initialize database (**Only needed once**)
 ```
 cd /home/postgres/scripts
 sh setup_db.sh

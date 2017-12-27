@@ -105,3 +105,6 @@ ENV/
 
 # Intellij files
 .idea
+
+# Mac stuff
+.DS_Store

@@ -10,3 +10,7 @@ pip install -U pytest
 pip install -U pytest-cov
 pip install -U pytest-django
 
+# sqlalchemy
+pip3 install psycopg2
+pip3 install SQLAlchemy
+

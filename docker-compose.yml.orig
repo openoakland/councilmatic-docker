@@ -2,7 +2,7 @@ version: "0.1"
 
 services:
   postgres:
-    image: ekkus93/councilmatic-scraper:latest
+    image: ekkus93/councilmatic-docker:latest
     environment:
       POSTGRES_PASSWORD: str0ng*p4ssw0rd
       PGDATA: /var/lib/postgresql/data

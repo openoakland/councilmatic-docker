@@ -43,8 +43,7 @@ docker exec -it -u postgres <<container_id>> bash
 ```
 or if you have only one docker instance
 ```
-container_id=$(docker ps | sed -n 2p | awk '{print $1}')
-docker exec -it -u postgres $container_id bash
+container_id=$(docker ps | sed -n 2p | awk '{print $1}'); docker exec -it -u postgres $container_id bash
 ```
 3. Activate councilmatic-scraper virtualenv
 ```

@@ -7,24 +7,25 @@ Docker instance for councilmatic-scraper.
 1. https://www.docker.com/
 
 ### Edit volumes docker-compose.yml for your local environment
+
 1. postgres
-   a. Create empty directory.
-   b. Replace "<<local_db_data_dir>>" with the full path to that directory.
+  * Create empty directory.
+  * Replace "<<local_db_data_dir>>" with the full path to that directory.
 2. solr
-   a. Create empty directory.
-   b. Replace "<<local_solr_data_dir>>" with the full path to that directory.
+  * Create empty directory.
+  * Replace "<<local_solr_data_dir>>" with the full path to that directory.
 3. councilmatic-scraper
-   a. If you don't have the latest copy of councilmatic-scraper, you can clone it from Github:
+  * If you don't have the latest copy of councilmatic-scraper, you can clone it from Github:
    ```
    git clone https://github.com/openoakland/councilmatic-scraper
 
    ```
-	1. *Currently (12/13/17), we are working on the "events" branch. Switch use the "events" branch until further notice.
+	* *Currently (12/13/17), we are working on the "events" branch. Switch use the "events" branch until further notice.
    	```	
    	cd councilmatic-scraper
    	git checkout events
    	```
-   b. Replace "<<local_councilmatic-scraper_git_repo_dir>>" with the full path to councilmatic-scraper.
+  * Replace "<<local_councilmatic-scraper_git_repo_dir>>" with the full path to councilmatic-scraper.
    
 The local db data directory and the councilmatic scraper git repo directory cannot be subdirectories of each other. If you're still not sure what to set, you can take a look at docker-compose.yml.sample. This is how I have things set up on my computer on Mac OS X.
 

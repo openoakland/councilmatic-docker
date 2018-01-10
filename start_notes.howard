@@ -1,0 +1,9 @@
+# These are notes on how Howard launches Docker
+cd /Users/matis/Dropbox/OpenOakland/councilmatic-docker
+docker-compose build --pull && docker-compose up -d   #only needed once to check whether you have the latest docker
+container_id=$(docker ps | sed -n 2p | awk '{print $1}'); docker exec -it -u postgres $container_id bash
+source_councilmatic
+cd /home/postgres/work;pupa update oakland
+
+#General Notes
+docker-compose down   # at the end

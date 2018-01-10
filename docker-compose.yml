@@ -8,39 +8,17 @@ services:
       - PGDATA=/var/lib/postgresql/data
     volumes:
       - <<local_db_data_dir>>:/var/lib/postgresql/data
-      - <<local_councilmatic-scraper_git_repo_dir>>:/home/postgres/work
+      - <<local_councilmatic-scraper_git_repo_dir>>:/home/postgres/work      
     ports:
       - 5432:5432
       - 8888:8888
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.1
-    container_name: elasticsearch
-    environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - ELASTIC_PASSWORD=str0ng*p4ssw0rd
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - <<local_elasticsearch_dir1>>:/usr/share/elasticsearch/data
+  solr:
+    image: solr
     ports:
-      - 9200:9200
-  elasticsearch2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.1
-    container_name: elasticsearch2
-    environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - "discovery.zen.ping.unicast.hosts=elasticsearch"
-      - ELASTIC_PASSWORD=str0ng*p4ssw0rd
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+     - "8983:8983"
     volumes:
-      - <<local_elasticsearch_dir2>>:/usr/share/elasticsearch/data
-
+      - <<local_solr_data_dir>>:/opt/solr/server/solr/mycores
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - mycore

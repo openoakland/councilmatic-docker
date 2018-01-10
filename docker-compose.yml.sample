@@ -1,13 +1,24 @@
-version: "0.1"
+version: "3"
 
 services:
   postgres:
     image: ekkus93/councilmatic-docker:latest
     environment:
-      POSTGRES_PASSWORD: str0ng*p4ssw0rd
-      PGDATA: /var/lib/postgresql/data
+      - POSTGRES_PASSWORD=str0ng*p4ssw0rd
+      - PGDATA=/var/lib/postgresql/data
     volumes:
       - /Users/phillipcchin/work/councilmatic-scraper-data:/var/lib/postgresql/data
       - /Users/phillipcchin/work/councilmatic-scraper:/home/postgres/work      
     ports:
-      - "5432:5432"
+      - 5432:5432
+      - 8888:8888
+  solr:
+    image: solr
+    ports:
+     - "8983:8983"
+    volumes:
+      - /Users/phillipcchin/work/councilmatic-solr:/opt/solr/server/solr/mycores
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - mycore

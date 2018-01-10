@@ -70,3 +70,4 @@ USER root
 
 VOLUME  ["/home/postgres/work"]
 
+EXPOSE 8888

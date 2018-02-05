@@ -115,6 +115,12 @@ cd /home/postgres/work
 ```
 
 ### Initialize database (**Only run once**)
+
+1. If you are not already in the councilmatic-scraper virtualenv, run the following command:
+```
+source /home/postgres/councilmatic/bin/activate
+```
+2. Run the initialize script.
 ```
 cd /home/postgres/scripts
 sh setup_db.sh
@@ -172,9 +178,32 @@ docker-compose down
 
 You should do this to shut down the docker instance and release the volume mounts cleanly.  Don't just do "docker stop..."
 
-## Connecting to Postgres remotely
+### Clearing out your Postgres database
 
-*This is optional*
+There might be some instances where you would want to clear out your database.  For instance, you might want to run pupa on a clean database for testing.  Here are the steps to do that:
+
+1. First make sure that all of the docker instances are shutdown.  To see all of the docker instances which are currently running, do:
+```
+docker ps
+```
+2. If there are any instances running, cd into your councilmatic-docker directory and run:
+```
+docker-compose down
+```
+3. cd into your Postgres data directory and delete all of the files (Make sure you're in the right directory!!!):
+```
+rm -rf *
+```
+4. cd into your councilmatic-docker directory and run the following command to start up the docker instances:
+```
+docker-compose pull && docker-compose up -d
+```
+5. The docker instances should be up and running at this point.  Follow the "Connect to your docker instance" instructions from above to connect to your database.
+6. The database is uninitialized.  Follw the "Initialize database" instructions from above to initialize the database.
+
+### Connecting to Postgres remotely
+
+*This is optional.*
 
 If you're using a Mac, you can download the following app,
 [PSequel](http://www.psequel.com/).

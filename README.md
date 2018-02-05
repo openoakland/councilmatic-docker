@@ -40,21 +40,35 @@ version: "3"
 services:
   postgres:
     image: ekkus93/councilmatic-docker:latest
+    container_name: councilmatic_postgres
     environment:
       - POSTGRES_PASSWORD=str0ng*p4ssw0rd
       - PGDATA=/var/lib/postgresql/data
     volumes:
-      - /Users/phillipcchin/work/councilmatic-scraper-data:/var/lib/postgresql/data
-      - /Users/phillipcchin/work/councilmatic-scraper:/home/postgres/work      
+      ### Sample
+      - <<local_db_data_dir>>:/var/lib/postgresql/data
+      - <<local_councilmatic-scraper_git_repo_dir>>:/home/postgres/work            
+      ### Phil
+      #- /Users/phillipcchin/work/councilmatic/councilmatic-scraper-data:/var/lib/postgresql/data
+      #- /Users/phillipcchin/work/councilmatic/councilmatic-scraper:/home/postgres/work
+      ### Howard
+      #- /Users/matis/Dropbox/OpenOakland/councilmatic-scraper-data:/var/lib/postgresql/data
+      #- /Users/matis/Dropbox/OpenOakland/councilmatic-scraper:/home/postgres/work      
     ports:
       - 5432:5432
       - 8888:8888
   solr:
     image: solr
+    container_name: councilmatic_solr
     ports:
      - "8983:8983"
     volumes:
-      - /Users/phillipcchin/work/councilmatic-solr:/opt/solr/server/solr/mycores
+      ### Sample
+      - <<local_solr_data_dir>>:/opt/solr/server/solr/mycores
+      ### Phil
+      # - /Users/phillipcchin/work/councilmatic/councilmatic-solr:/opt/solr/server/solr/mycores
+      ### Howard
+      # - ???:/opt/solr/server/solr/mycores
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
@@ -64,13 +78,13 @@ services:
 If you want, you can also change the POSTGRES_PASSWORD.  You will need this if you want to connect remotely to the database as "postgres".  The default postgres port, 5432, has been exposed.  You should be able to connect to the database on that port on 127.0.0.1 or the ip of your Docker host instance.
 
 ### Start docker instance with docker-compose
-In directory with docker-compose.yml run:
+In directory with docker-compose.yml, run:
 ```
 docker-compose up -d
 ```
 **_To force downloading the latest version of the docker container:_**
 ```
-docker-compose build --pull && docker-compose up -d
+docker-compose pull && docker-compose up -d
 ```
 
 ### Connect to your docker instance

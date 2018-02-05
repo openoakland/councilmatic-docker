@@ -54,6 +54,9 @@ RUN chown -R postgres /home/postgres
 # postgres user set up
 USER postgres
 
+# have postgres listen to all ip addresses
+COPY ./postgresql.conf /var/lib/postgresql/data/postgresql.conf
+
 # fix term
 RUN echo "\nexport TERM=xterm\n" >> /home/postgres/.bashrc
 
@@ -70,4 +73,4 @@ USER root
 
 VOLUME  ["/home/postgres/work"]
 
-EXPOSE 8888
+EXPOSE 5432 8888

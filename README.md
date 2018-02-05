@@ -1,6 +1,10 @@
 # councilmatic-docker
 Docker instance for councilmatic-scraper.  
 
+[//]: # (Image References)
+
+[image1]: ./imgs/psequel.png "PSequel - New Window"
+
 ## Quickstart
 
 ###  Make sure you have Docker installed for your OS
@@ -32,8 +36,7 @@ cd councilmatic-scraper
 git checkout events
 ```
 
-   
-The local db data directory and the councilmatic scraper git repo directory cannot be subdirectories of each other. If you're still not sure what to set, you can take a look at docker_compose_files/docker-compose.yml.sample. This is how I have things set up for my Mac OS X:
+The local postgres and solr data directories and the councilmatic scraper git repo directory cannot be subdirectories of each other. Below is the docker-compose.yml file. You can look at the commented volume lines for Phil and Howard to get a better idea of what to set for them.
 ```
 version: "3"
 
@@ -168,3 +171,24 @@ docker-compose down
 ```
 
 You should do this to shut down the docker instance and release the volume mounts cleanly.  Don't just do "docker stop..."
+
+## Connecting to Postgres remotely
+
+*This is optional*
+
+If you're using a Mac, you can download the following app,
+[PSequel](http://www.psequel.com/).
+
+When you go to "File/New Window", you should see something like this:
+![PSequel - New Window][image1]
+
+To log in remotely to the Postgres database, use the following settings:
+
+Name | Value 
+-----|---------------
+Host | 127.0.0.1 
+User | postgres  
+Password | str0ng*p4ssw0rd 
+Database | opencivicdata 
+
+If you want to set a different password, you can change it in the docker-compose.yml file.

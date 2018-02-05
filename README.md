@@ -80,9 +80,9 @@ docker-compose build --pull && docker-compose up -d
 docker ps
 docker exec -it -u postgres <<container_id>> bash
 ```
-or if you have only one docker instance
+or 
 ```
-container_id=$(docker ps | sed -n 2p | awk '{print $1}'); docker exec -it -u postgres $container_id bash
+container_id=$(docker ps > d.tmp;grep -m 1 "councilmatic-docker" d.tmp | awk '{print $1}'); docker exec -it -u postgres $container_id bash
 ```
 2. Activate councilmatic-scraper virtualenv
 ```

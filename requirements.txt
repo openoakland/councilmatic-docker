@@ -3,3 +3,29 @@ https://github.com/datamade/pupa/zipball/master
 lxml
 sh 
 https://github.com/opencivicdata/python-legistar-scraper/zipball/master
+
+# django
+Django==1.11.8
+
+# pytest
+pytest
+pytest-cov
+pytest-django
+
+# sqlalchemy
+psycopg2
+SQLAlchemy
+
+# elasticsearch
+elasticsearch
+
+# jupyter notebook
+jupyter
+
+# data science stuff
+numpy
+pandas
+matplotlib
+
+tqdm
+

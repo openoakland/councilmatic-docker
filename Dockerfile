@@ -23,6 +23,8 @@ RUN pip3 install cryptography==2.1.1
 RUN pip3 install virtualenv
 RUN apt-get install python3-lxml -y 
 
+RUN apt-get install python3-matplotlib -y
+
 # postgis
 RUN apt-get install postgresql-9.6-postgis-2.4 -y
 

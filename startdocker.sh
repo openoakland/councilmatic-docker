@@ -1,5 +1,5 @@
 #!/bin/bash
-# by HSM
+# by HSM and for his computer
 #
 #Start docker instance with docker-compose
 #

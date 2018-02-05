@@ -1,3 +1,0 @@
-CONTAINER ID        IMAGE                                COMMAND                  CREATED                  STATUS              PORTS                                            NAMES
-07344f9cace8        ekkus93/councilmatic-docker:latest   "docker-entrypoint.s…"   Less than a second ago   Up 3 seconds        0.0.0.0:5432->5432/tcp, 0.0.0.0:8888->8888/tcp   councilmatic_postgres
-8dbcdd99b043        solr                                 "docker-entrypoint.s…"   Less than a second ago   Up 4 seconds        0.0.0.0:8983->8983/tcp                           councilmatic_solr

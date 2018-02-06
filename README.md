@@ -1,6 +1,10 @@
 # councilmatic-docker
 Docker instance for councilmatic-scraper.  
 
+[//]: # (Image References)
+
+[image1]: ./imgs/psequel.png "PSequel - New Window"
+
 ## Quickstart
 
 ###  Make sure you have Docker installed for your OS
@@ -32,29 +36,42 @@ cd councilmatic-scraper
 git checkout events
 ```
 
-   
-The local db data directory and the councilmatic scraper git repo directory cannot be subdirectories of each other. If you're still not sure what to set, you can take a look at docker_compose_files/docker-compose.yml.sample. This is how I have things set up for my Mac OS X:
+The local postgres and solr data directories and the councilmatic scraper git repo directory cannot be subdirectories of each other. Below is the docker-compose.yml file. You can look at the commented volume lines for Phil and Howard to get a better idea of what to set for them.
 ```
 version: "3"
 
 services:
   postgres:
     image: ekkus93/councilmatic-docker:latest
+    container_name: councilmatic_postgres
     environment:
       - POSTGRES_PASSWORD=str0ng*p4ssw0rd
       - PGDATA=/var/lib/postgresql/data
     volumes:
-      - /Users/phillipcchin/work/councilmatic-scraper-data:/var/lib/postgresql/data
-      - /Users/phillipcchin/work/councilmatic-scraper:/home/postgres/work      
+      ### Sample
+      - <<local_db_data_dir>>:/var/lib/postgresql/data
+      - <<local_councilmatic-scraper_git_repo_dir>>:/home/postgres/work            
+      ### Phil
+      #- /Users/phillipcchin/work/councilmatic/councilmatic-scraper-data:/var/lib/postgresql/data
+      #- /Users/phillipcchin/work/councilmatic/councilmatic-scraper:/home/postgres/work
+      ### Howard
+      #- /Users/matis/Dropbox/OpenOakland/councilmatic-scraper-data:/var/lib/postgresql/data
+      #- /Users/matis/Dropbox/OpenOakland/councilmatic-scraper:/home/postgres/work      
     ports:
       - 5432:5432
       - 8888:8888
   solr:
     image: solr
+    container_name: councilmatic_solr
     ports:
      - "8983:8983"
     volumes:
-      - /Users/phillipcchin/work/councilmatic-solr:/opt/solr/server/solr/mycores
+      ### Sample
+      - <<local_solr_data_dir>>:/opt/solr/server/solr/mycores
+      ### Phil
+      # - /Users/phillipcchin/work/councilmatic/councilmatic-solr:/opt/solr/server/solr/mycores
+      ### Howard
+      # - ???:/opt/solr/server/solr/mycores
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
@@ -64,13 +81,13 @@ services:
 If you want, you can also change the POSTGRES_PASSWORD.  You will need this if you want to connect remotely to the database as "postgres".  The default postgres port, 5432, has been exposed.  You should be able to connect to the database on that port on 127.0.0.1 or the ip of your Docker host instance.
 
 ### Start docker instance with docker-compose
-In directory with docker-compose.yml run:
+In directory with docker-compose.yml, run:
 ```
 docker-compose up -d
 ```
 **_To force downloading the latest version of the docker container:_**
 ```
-docker-compose build --pull && docker-compose up -d
+docker-compose pull && docker-compose up -d
 ```
 
 ### Connect to your docker instance
@@ -98,6 +115,12 @@ cd /home/postgres/work
 ```
 
 ### Initialize database (**Only run once**)
+
+1. If you are not already in the councilmatic-scraper virtualenv, run the following command:
+```
+source /home/postgres/councilmatic/bin/activate
+```
+2. Run the initialize script.
 ```
 cd /home/postgres/scripts
 sh setup_db.sh
@@ -154,3 +177,47 @@ docker-compose down
 ```
 
 You should do this to shut down the docker instance and release the volume mounts cleanly.  Don't just do "docker stop..."
+
+### Clearing out your Postgres database
+
+There might be some instances where you would want to clear out your database.  For instance, you might want to run pupa on a clean database for testing.  Here are the steps to do that:
+
+1. First make sure that all of the docker instances are shutdown.  To see all of the docker instances which are currently running, do:
+```
+docker ps
+```
+2. If there are any instances running, cd into your councilmatic-docker directory and run:
+```
+docker-compose down
+```
+3. cd into your Postgres data directory and delete all of the files (Make sure you're in the right directory!!!):
+```
+rm -rf *
+```
+4. cd into your councilmatic-docker directory and run the following command to start up the docker instances:
+```
+docker-compose pull && docker-compose up -d
+```
+5. The docker instances should be up and running at this point.  Follow the "Connect to your docker instance" instructions from above to connect to your database.
+6. The database is uninitialized.  Follw the "Initialize database" instructions from above to initialize the database.
+
+### Connecting to Postgres remotely
+
+*This is optional.*
+
+If you're using a Mac, you can download the following app,
+[PSequel](http://www.psequel.com/).
+
+When you go to "File/New Window", you should see something like this:
+![PSequel - New Window][image1]
+
+To log in remotely to the Postgres database, use the following settings:
+
+Name | Value 
+-----|---------------
+Host | 127.0.0.1 
+User | postgres  
+Password | str0ng*p4ssw0rd 
+Database | opencivicdata 
+
+If you want to set a different password, you can change it in the docker-compose.yml file.

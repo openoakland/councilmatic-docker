@@ -1,13 +1,31 @@
-version: "0.1 for Howard"
+version: "3 for Howard"
+
+#When you check this choose the directories for your own machine
 
 services:
   postgres:
     image: ekkus93/councilmatic-docker:latest
+    container_name: councilmatic_postgres
     environment:
-      POSTGRES_PASSWORD: str0ng*p4ssw0rd
-      PGDATA: /var/lib/postgresql/data
+      - POSTGRES_PASSWORD=str0ng*p4ssw0rd
+      - PGDATA=/var/lib/postgresql/data
     volumes:
-      - /Users/matis/Dropbox/OpenOakland/councilmatic-scraper-data:/var/lib/postgresql/data
+ #    - <<local_db_data_dir>>:/var/lib/postgresql/data
+      - /Users/matis/Dropbox/OpenOakland/councilmatic-scraper_data:/var/lib/postgresql/data
+ #    - <<local_councilmatic-scraper_git_repo_dir>>:/home/postgres/work
       - /Users/matis/Dropbox/OpenOakland/councilmatic-scraper:/home/postgres/work
     ports:
-      - "5432:5432"
+      - 5432:5432
+      - 8888:8888
+  solr:
+    image: solr
+    container_name: councilmatic_solr
+    ports:
+     - 8983:8983
+    volumes:
+#     - <<local_solr_data_dir>>:/opt/solr/server/solr/mycores
+      - /Users/matis/Dropbox/OpenOakland/councilmatic-solr-data:/opt/solr/server/solr/mycores
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - mycore

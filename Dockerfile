@@ -56,6 +56,8 @@ RUN chown -R postgres /home/postgres
 # postgres user set up
 USER postgres
 
+WORKDIR "/home/postgres/work"
+
 # have postgres listen to all ip addresses
 COPY ./postgresql.conf /var/lib/postgresql/data/postgresql.conf
 
@@ -76,3 +78,5 @@ USER root
 VOLUME  ["/home/postgres/work"]
 
 EXPOSE 5432 8888
+
+COPY ./version.txt /tmp/version.txt

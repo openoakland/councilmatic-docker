@@ -12,11 +12,11 @@ services:
       #- <<local_db_data_dir>>:/var/lib/postgresql/data
       #- <<local_councilmatic-scraper_git_repo_dir>>:/home/postgres/work            
       ### Phil
-      - /Users/phillipcchin/work/councilmatic/councilmatic-scraper-data:/var/lib/postgresql/data
-      - /Users/phillipcchin/work/councilmatic/councilmatic-scraper:/home/postgres/work
+      #- /Users/phillipcchin/work/councilmatic/councilmatic-scraper-data:/var/lib/postgresql/data
+      #- /Users/phillipcchin/work/councilmatic/councilmatic-scraper:/home/postgres/work
       ### Howard
-      #- /Users/matis/Dropbox/OpenOakland/councilmatic-scraper-data:/var/lib/postgresql/data
-      #- /Users/matis/Dropbox/OpenOakland/councilmatic-scraper:/home/postgres/work      
+      - /Users/matis/Dropbox/OpenOakland/councilmatic/councilmatic-scraper-data:/var/lib/postgresql/data
+      - /Users/matis/Dropbox/OpenOakland/councilmatic/councilmatic-scraper:/home/postgres/work
     ports:
       - 7432:5432
       - 8888:8888

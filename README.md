@@ -32,8 +32,6 @@ git clone git@github.com:openoakland/councilmatic-scraper.git
 
 Remember the path for this.  You will need it later.
 
-*Currently (12/13/17), we are working on the "events" branch. Switch use the "events" branch until further notice.*
-
 ```	
 cd councilmatic-scraper
 git checkout events

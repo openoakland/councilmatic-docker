@@ -1,3 +1,6 @@
+numpy==1.11.3
+pandas==0.19.2
+
 https://github.com/opencivicdata/python-opencivicdata-django/zipball/master/
 https://github.com/datamade/pupa/zipball/master
 lxml
@@ -6,6 +9,11 @@ https://github.com/opencivicdata/python-legistar-scraper/zipball/master
 
 # django
 Django==1.11.8
+
+# data science stuff
+jupyter
+matplotlib
+tqdm
 
 # pytest
 pytest
@@ -19,13 +27,5 @@ SQLAlchemy
 # elasticsearch
 elasticsearch
 
-# jupyter notebook
-jupyter
 
-# data science stuff
-numpy
-pandas
-matplotlib
-
-tqdm
 

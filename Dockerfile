@@ -51,15 +51,13 @@ RUN chsh -s /bin/bash postgres
 COPY ./setup_db.sh /home/postgres/scripts/setup_db.sh
 COPY ./requirements.txt /home/postgres/scripts/requirements.txt
 COPY ./setup_env.sh /home/postgres/scripts/setup_env.sh
+
 RUN chown -R postgres /home/postgres
 
 # postgres user set up
 USER postgres
 
 WORKDIR "/home/postgres/work"
-
-# have postgres listen to all ip addresses
-COPY ./postgresql.conf /var/lib/postgresql/data/postgresql.conf
 
 # fix term
 RUN echo "\nexport TERM=xterm\n" >> /home/postgres/.bashrc

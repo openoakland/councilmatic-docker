@@ -29,22 +29,19 @@ mkdir -p ~/work/councilmatic
 ### 2. Clone Councilematic scraper docker repo
 
 ```
-cd ~/work/councilmatic
-git clone git@github.com:openoakland/councilmatic-docker.git
+cd ~/work/councilmatic && git clone git@github.com:openoakland/councilmatic-docker.git
 ```
 
 ### 3. Make Postgres data directory
 
 ```
-cd ~/work/councilmatic
-mkdir councilmatic-scraper-data
+mkdir -p ~/work/councilmatic/councilmatic-scraper-data
 ```
 
-### 4. Make Postgres data directory
+### 4. Clone Councilematic scraper repo
 
 ```
-cd ~/work/councilmatic
-mkdir councilmatic-scraper-data
+cd ~/work/councilmatic && git clone git@github.com:openoakland/councilmatic-scraper.git
 ```
 
 ### Start docker instance with docker-compose
@@ -76,12 +73,21 @@ source /home/postgres/councilmatic/bin/activate
 ```
 2. Run the initialize script.
 ```
-cd /home/postgres/scripts
-sh setup_db.sh
+cd /home/postgres/scripts && sh setup_db.sh
 ```
 This will create the opencivicdata database for you and init it for US.  You do not have to run "createdb opencivicdata" or "pupa dbinit us".  It probably won't do any harm but it will give you errors.
 
 After you have initialized your database, files should appear in your local db data directory. 
+
+Shutdown the container
+```
+cd ~/work/councilmatic/councilmatic-docker && docker-compose down
+```
+
+Copy this postgres config file (See https://github.com/openoakland/councilmatic-docker/commit/a910f468afd0f7fac4bd479c6467d420da36b02c):
+```
+cp ~/work/councilmatic/councilmatic-docker/postgresql.conf ~/work/councilmatic-scraper-data
+```
 
 ## Run pupa update (for Oakland)
 
@@ -127,7 +133,7 @@ jupyter notebook --no-browser --ip=0.0.0.0
 
 ### Shut down your docker instance
 ```
-docker-compose down
+cd ~/work/councilmatic/councilmatic-docker && docker-compose down
 ```
 
 You should do this to shut down the docker instance and release the volume mounts cleanly.  Don't just do "docker stop..."
@@ -142,13 +148,12 @@ docker ps
 ```
 2. If there are any instances running, cd into your councilmatic-docker directory and run:
 ```
-docker-compose down
+cd ~/work/councilmatic/councilmatic-docker && docker-compose down
 ```
 3. cd into your Postgres data directory and delete all of the files:
 Go to the directory where your Postgres data directory is and do:
 ```
-rm -rf <<your Postgres data directory>>
-mkdir <<your Postgres data directory>>
+rm -rf ~/work/councilmatic/councilmatic-scraper-data && mkdir ~/work/councilmatic/councilmatic-scraper-data
 ```
 _Replace "<<your Postgres data directory>>" with the name of your Postgres data directory.
 4. cd into your councilmatic-docker directory and run the following command to start up the docker instances:
@@ -157,6 +162,14 @@ docker-compose pull && docker-compose up -d
 ```
 5. The docker instances should be up and running at this point.  Follow the "Connect to your docker instance" instructions from above to connect to your database.
 6. The database is uninitialized.  Follw the "Initialize database" instructions from above to initialize the database.
+7. Shutdown container
+```
+cd ~/work/councilmatic/councilmatic-docker && docker-compose down
+```
+8. Copy this postgres config file (See https://github.com/openoakland/councilmatic-docker/commit/a910f468afd0f7fac4bd479c6467d420da36b02c):
+```
+cp ~/work/councilmatic/councilmatic-docker/postgresql.conf ~/work/councilmatic-scraper-data
+```
 
 ### Connecting to Postgres remotely
 

@@ -47,68 +47,6 @@ cd ~/work/councilmatic
 mkdir councilmatic-scraper-data
 ```
 
-
-_If you are on a Mac, I suggest creating these directories somewhere under your home directory._
-
-### 1. Clone this repo
-
-```
-git clone git@github.com:openoakland/councilmatic-scraper.git
-```
-
-### 2. Make Postgres data directory
-
-*DO NOT CREATE THIS DIRECTORY INSIDE OF THE councilmatic-website-docker directory*
-
-Remember the path for this.  You will need it later.
-
-```	
-cd councilmatic-scraper
-git checkout events
-```
-
-### 3. Set up docker-compose.yml
-
-In the councilmatic-website-docker directory, there is a file called 'docker-compose.yml'.  You will need to edit this file with a text editor to update the volume mapping for your computer.  The docker containers will read and write to these directories that you mapped on your host machine.  When you shut down the docker instances, the data should still persist in these directories on your host. 
-
-Under "services/postgres", you should see something that looks like this:
-
-```
-    volumes:
-      ### Sample
-      #- <<local_db_data_dir>>:/var/lib/postgresql/data
-      #- <<local_councilmatic-scraper_git_repo_dir>>:/home/postgres/work
-      ### Phil
-      - /Users/phillipcchin/work/councilmatic/councilmatic-scraper-data:/var/lib/postgresql/data
-      - /Users/phillipcchin/work/councilmatic/councilmatic-scraper:/home/postgres/work
-```
-
-1. Postgres
-
-Comment out:
-```
-- /Users/phillipcchin/work/councilmatic/councilmatic-scraper-data:/var/lib/postgresql/data
-```
-by putting a '#' in front of the line.  Add a line below this section.  It should be similar to the example pattern from above:
-```
-      - <<local_db_data_dir>>:/var/lib/postgresql/data
-```
-Replace "<< website postgres data dir >>" with the path that you saved from the "2. Make Postgres data directory".
-
-If you want, you can also change the POSTGRES_PASSWORD.  You will need this if you want to connect remotely to the database as "postgres".  The default postgres port, 5432, has been exposed and mapped to port, 7432, on your host.  
-
-2. Scraper
-
-Comment out:
-```
-- /Users/phillipcchin/work/councilmatic/councilmatic-scraper:/home/postgres/work
-```
-by putting a '#' in front of the line.  Add a line below this section.  It should be similar to the example pattern from above:
-```
-      - <<local_councilmatic-scraper_git_repo_dir>>:/home/postgres/work
-```
-Replace "<<councilmatic web dir>>" with the path that you saved from the "1. Clone this repo" step earlier.
-
 ### Start docker instance with docker-compose
 In directory with docker-compose.yml, run:
 ```

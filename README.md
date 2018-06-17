@@ -13,10 +13,40 @@ First, make sure you have Docker installed.  If you do not have Docker installed
 
 Once you have Docker installed, you will need to create the following directories and clone the following repos:
 
-1. Councilmatic website docker repo (this repo)
-2. Postgres data directory
-3. Solr data directory 
-4. Councilmatic Django website repo
+1. Base councilmatic directory
+2. Councilmatic scraper docker repo (this repo)
+3. Postgres data directory
+4. Councilmatic scraper 
+
+### 1. Create base Councilmatic directory
+
+Create directory:
+
+```
+mkdir -p ~/work/councilmatic
+```
+
+### 2. Clone Councilematic scraper docker repo
+
+```
+cd ~/work/councilmatic
+git clone git@github.com:openoakland/councilmatic-docker.git
+```
+
+### 3. Make Postgres data directory
+
+```
+cd ~/work/councilmatic
+mkdir councilmatic-scraper-data
+```
+
+### 4. Make Postgres data directory
+
+```
+cd ~/work/councilmatic
+mkdir councilmatic-scraper-data
+```
+
 
 _If you are on a Mac, I suggest creating these directories somewhere under your home directory._
 

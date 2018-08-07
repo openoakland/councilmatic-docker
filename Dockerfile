@@ -1,48 +1,28 @@
 FROM postgres:9.6.5
 MAINTAINER Phil Chin <ekkus93@gmail.com>
 
-RUN apt-get update && apt-get upgrade -y 
-RUN apt-get install wget screen -y
-RUN apt-get install lsb-core -y
+RUN apt-get update \
+ && apt-get install -y \
+    # general system dependencies
+    wget screen lsb-core \
+    # editors for dev purposes
+    emacs vim nano \
+    # python and pip system dependencies
+    gdal-bin binutils libproj-dev python3-pip \
+    build-essential libssl-dev libffi-dev python3-dev \
+    python3-lxml python3-matplotlib libpq-dev python-dev \
+    python3-gdal libxml2-dev libxslt-dev \
+    # postgresql extensions
+    postgresql-9.6-postgis-2.4 \
+ && rm -rf /var/lib/apt/lists
 
-#emacs
-# update again otherwise emacs might fail to install
-RUN apt-get update && apt-get upgrade -y 
-RUN apt-get install emacs -y --fix-missing
-
-# python
-RUN apt-get remove --auto-remove gdal-bin -y
-RUN apt-get install binutils libproj-dev gdal-bin -y
-
-RUN apt-get install -y python3-pip
-RUN pip3 install --upgrade setuptools
-RUN apt-get install build-essential libssl-dev libffi-dev python3-dev
-RUN pip3 install cffi
-#RUN pip3 install Cython
-RUN pip3 install cryptography==2.1.1
-RUN pip3 install virtualenv
-RUN apt-get install python3-lxml -y 
-
-RUN apt-get install python3-matplotlib -y
-
-# postgis
-RUN apt-get install postgresql-9.6-postgis-2.4 -y
-
-# gdal
-#RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
-RUN apt-get update
-RUN apt-get install libpq-dev python-dev -y
-RUN apt-get install gdal-bin python3-gdal -y
-
-# xml stuff
-RUN apt-get -y install libxml2-dev libxslt-dev
-
-# text editors
-RUN apt-get install vim nano -y
+# upgrade setuptools first, see:
+#   https://github.com/ansible/ansible/issues/31741#issuecomment-336889622
+RUN pip3 install --upgrade setuptools \
+ && pip3 install cffi cryptography==2.1.1 virtualenv
 
 # home dir
-RUN mkdir -p /home/postgres/scripts
-RUN mkdir -p /home/postgres/work
+RUN mkdir -p /home/postgres/scripts /home/postgres/work
 RUN usermod -d /home/postgres postgres
 
 # set bash shell
